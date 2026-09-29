@@ -15,7 +15,6 @@ class TextFieldDecoration {
       hintText: hintText,
       hintStyle: TextStyle(fontSize: 11),
       labelText: labelText,
-      labelStyle: TextStyle(fontSize: 11),
       floatingLabelBehavior: FloatingLabelBehavior.always,
       contentPadding: contentPadding,
       border: OutlineInputBorder(

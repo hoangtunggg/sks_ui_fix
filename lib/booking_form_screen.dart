@@ -11,16 +11,7 @@ class BookingFormScreen extends StatefulWidget {
 }
 
 class _BookingFormScreenState extends State<BookingFormScreen> {
-  bool trungChuyenDon = true;
-  bool trungChuyenTra = true;
-
-  bool guiTinNhan = false;
-  bool guiZalo = false;
-  bool xuatChungTu = false;
-
   String? hinhThucThanhToan;
-  String? maGiamGia;
-  String? daiLy;
 
   @override
   Widget build(BuildContext context) {
@@ -281,10 +272,12 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
             decoration: TextFieldDecoration.standard(
               contentPadding: EdgeInsets.all(10),
               labelText: "Giá vé",
-              suffixIcon: const Icon(),
+              suffixIcon: const Icon(Icons.money_rounded),
             ),
           ),
         ),
+
+        SizedBox(height: 15),
 
         SizedBox(
           height: 35,
@@ -292,18 +285,37 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
             style: TextStyle(fontSize: 11),
             decoration: TextFieldDecoration.standard(
               contentPadding: EdgeInsets.all(10),
-              labelText: "Tuyến đường",
+              labelText: "Tổng tiền",
             ),
           ),
         ),
 
-        _field(label: 'Đón'),
+        SizedBox(height: 15),
 
-        _field(label: 'Trả'),
-
-        _field(label: 'Giá vé'),
-
-        const SizedBox(height: 30),
+        SizedBox(
+          height: 35,
+          child: DropdownButtonFormField<String>(
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Hình thức thanh toán",
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: 'Tiền mặt',
+                child: Text('Tiền mặt', style: TextStyle(fontSize: 12)),
+              ),
+              DropdownMenuItem(
+                value: 'Chuyển khoản',
+                child: Text('Chuyển khoản', style: TextStyle(fontSize: 12)),
+              ),
+            ],
+            onChanged: (String? value) {
+              setState(() {
+                hinhThucThanhToan = value;
+              });
+            },
+          ),
+        ),
       ],
     );
   }
