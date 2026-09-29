@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/booking_history.dart';
 import 'package:flutter_application_1/booking_home_screen.dart';
 
 void main() {
@@ -22,6 +23,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: BookingHomeScreen()));
+    return const Scaffold(body: Center(child: BookingHistory()));
   }
 }

@@ -11,7 +11,13 @@ class BookingFormScreen extends StatefulWidget {
 }
 
 class _BookingFormScreenState extends State<BookingFormScreen> {
+  bool guiTinNhan = false;
+  bool guiZalo = false;
+  bool xuatChungTu = false;
+
   String? hinhThucThanhToan;
+
+  final TextEditingController noteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +43,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
 
             Expanded(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -59,7 +65,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                             vertical: 12,
                           ),
                           child: Text(
-                            'Thông tin chung',
+                            'Lịch sử',
                             style: TextStyle(color: Colors.blue, fontSize: 13),
                           ),
                         ),
@@ -69,7 +75,7 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                             vertical: 12,
                           ),
                           child: Text(
-                            'Thông tin chung',
+                            'Lịch sử mới',
                             style: TextStyle(color: Colors.blue, fontSize: 13),
                           ),
                         ),
@@ -77,6 +83,8 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                     ),
 
                     const Divider(),
+
+                    const SizedBox(height: 30),
 
                     Wrap(
                       spacing: 5,
@@ -86,14 +94,14 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                         Text(
                           'KVCP',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           '13:00',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
@@ -103,14 +111,14 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                         Text(
                           'VPQN',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           '14:00',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
@@ -119,14 +127,14 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                         Text(
                           'CAOTOC',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           '16:15',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
@@ -135,14 +143,14 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                         Text(
                           'HA NOI',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           '17:15',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
@@ -150,14 +158,14 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                         Text(
                           'KVCP',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           '13:00',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
@@ -167,14 +175,14 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                         Text(
                           'VPQN',
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           '14:00',
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 15,
                             color: Colors.blue,
                             fontWeight: FontWeight.bold,
                           ),
@@ -182,16 +190,16 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
                       ],
                     ),
 
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 45),
 
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(child: _buildLeftForm()),
+                        Expanded(child: _buildLeft()),
 
                         const SizedBox(width: 45),
 
-                        Expanded(child: _buildRightForm()),
+                        Expanded(child: _buildRight()),
                       ],
                     ),
                   ],
@@ -201,35 +209,30 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
           ],
         ),
       ),
+      bottomNavigationBar: _buildBottom(),
     );
   }
 
-  Widget _buildLeftForm() {
+  Widget _buildLeft() {
     return Column(
       children: [
-        Row(
-          children: [
-            Expanded(
-              child: SizedBox(
-                height: 35,
-                child: TimeTextField(labelText: "Giờ"),
-              ),
-            ),
-            Expanded(
-              child: SizedBox(
-                height: 35,
-                child: DateTextField(labelText: "Ngày"),
-              ),
-            ),
-          ],
+        SizedBox(
+          height: 50,
+          child: Row(
+            children: [
+              Expanded(flex: 2, child: TimeTextField(labelText: "Giờ")),
+              const SizedBox(width: 10),
+              Expanded(flex: 5, child: DateTextField(labelText: "Ngày")),
+            ],
+          ),
         ),
 
         SizedBox(height: 15),
 
         SizedBox(
-          height: 35,
+          height: 50,
           child: TextFormField(
-            style: TextStyle(fontSize: 11),
+            style: TextStyle(fontSize: 12),
             decoration: TextFieldDecoration.standard(
               contentPadding: EdgeInsets.all(10),
               labelText: "SĐT người đặt",
@@ -240,39 +243,76 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
         SizedBox(height: 15),
 
         SizedBox(
-          height: 35,
-          child: TextFormField(
-            style: TextStyle(fontSize: 11),
-            decoration: TextFieldDecoration.standard(
-              contentPadding: EdgeInsets.all(10),
-              labelText: "Đón",
-            ),
+          height: 50,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 5,
+                child: TextFormField(
+                  style: const TextStyle(fontSize: 12),
+                  decoration: TextFieldDecoration.standard(
+                    contentPadding: const EdgeInsets.all(10),
+                    labelText: "Đón",
+                  ),
+                ),
+              ),
+              Expanded(
+                child: CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  horizontalTitleGap: 0,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('Trung chuyển'),
+                  value: false,
+                  onChanged: (value) {},
+                ),
+              ),
+            ],
           ),
         ),
 
         SizedBox(height: 15),
 
         SizedBox(
-          height: 35,
-          child: TextFormField(
-            style: TextStyle(fontSize: 11),
-            decoration: TextFieldDecoration.standard(
-              contentPadding: EdgeInsets.all(10),
-              labelText: "Trả",
-            ),
+          height: 50,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 5,
+                child: TextFormField(
+                  style: const TextStyle(fontSize: 12),
+                  decoration: TextFieldDecoration.standard(
+                    contentPadding: const EdgeInsets.all(10),
+                    labelText: "Trả",
+                  ),
+                ),
+              ),
+              Expanded(
+                child: CheckboxListTile(
+                  controlAffinity: ListTileControlAffinity.leading,
+                  horizontalTitleGap: 0,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text('Trung chuyển'),
+                  value: false,
+                  onChanged: (value) {},
+                ),
+              ),
+            ],
           ),
         ),
 
         SizedBox(height: 15),
 
         SizedBox(
-          height: 35,
+          height: 50,
           child: TextFormField(
-            style: TextStyle(fontSize: 11),
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.lightBlue,
+              fontWeight: FontWeight.bold,
+            ),
             decoration: TextFieldDecoration.standard(
               contentPadding: EdgeInsets.all(10),
               labelText: "Giá vé",
-              suffixIcon: const Icon(Icons.money_rounded),
             ),
           ),
         ),
@@ -280,9 +320,26 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
         SizedBox(height: 15),
 
         SizedBox(
-          height: 35,
+          height: 50,
           child: TextFormField(
-            style: TextStyle(fontSize: 11),
+            style: TextStyle(fontSize: 12),
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Tiền phụ thu TC đón",
+            ),
+          ),
+        ),
+
+        SizedBox(height: 15),
+
+        SizedBox(
+          height: 50,
+          child: TextFormField(
+            style: TextStyle(
+              color: Colors.lightBlue,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
             decoration: TextFieldDecoration.standard(
               contentPadding: EdgeInsets.all(10),
               labelText: "Tổng tiền",
@@ -293,8 +350,9 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
         SizedBox(height: 15),
 
         SizedBox(
-          height: 35,
+          height: 50,
           child: DropdownButtonFormField<String>(
+            hint: Text('Chọn hình thức', style: const TextStyle(fontSize: 12)),
             decoration: TextFieldDecoration.standard(
               contentPadding: EdgeInsets.all(10),
               labelText: "Hình thức thanh toán",
@@ -316,46 +374,403 @@ class _BookingFormScreenState extends State<BookingFormScreen> {
             },
           ),
         ),
+
+        // SizedBox(height: 20),
+
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 10),
+        //   child: CheckboxListTile(
+        //     controlAffinity: ListTileControlAffinity.leading,
+        //     value: guiTinNhan,
+        //     onChanged: (value) {
+        //       setState(() {
+        //         guiTinNhan = value ?? false;
+        //       });
+        //     },
+        //     title: Row(
+        //       children: [
+        //         Text('Gửi tin nhắn', style: TextStyle(fontSize: 15)),
+        //         const SizedBox(width: 5),
+        //         const Icon(Icons.edit, size: 15, color: Colors.blue),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 10),
+        //   child: CheckboxListTile(
+        //     controlAffinity: ListTileControlAffinity.leading,
+        //     value: guiZalo,
+        //     onChanged: (value) {
+        //       setState(() {
+        //         guiZalo = value ?? false;
+        //       });
+        //     },
+        //     title: Row(
+        //       children: [
+        //         Text('Gửi tin nhắn Zalo', style: TextStyle(fontSize: 15)),
+        //         const SizedBox(width: 5),
+        //         const Icon(Icons.edit, size: 15, color: Colors.blue),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+
+        // Padding(
+        //   padding: const EdgeInsets.only(left: 10),
+        //   child: CheckboxListTile(
+        //     controlAffinity: ListTileControlAffinity.leading,
+        //     value: xuatChungTu,
+        //     onChanged: (value) {
+        //       setState(() {
+        //         xuatChungTu = value ?? false;
+        //       });
+        //     },
+        //     title: Text(
+        //       'Yêu cầu xuất chứng từ',
+        //       style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
 
-  Widget _buildRightForm() {
-    return Column(children: [_field(label: 'Tên người đặt')]);
-  }
-
-  Widget _field({required String label}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 125,
-            child: Text(
-              label,
-              textAlign: TextAlign.right,
-              style: const TextStyle(fontSize: 13),
+  Widget _buildRight() {
+    return Column(
+      children: [
+        SizedBox(
+          height: 50,
+          child: TextFormField(
+            style: TextStyle(fontSize: 12),
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Tên người đặt",
             ),
           ),
+        ),
 
-          const SizedBox(width: 12),
+        SizedBox(height: 15),
 
-          Expanded(
-            child: TextFormField(
-              decoration: const InputDecoration(
-                isDense: true,
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 8,
-                ),
-                border: OutlineInputBorder(borderRadius: BorderRadius.zero),
-              ),
+        SizedBox(
+          height: 50,
+          child: TextFormField(
+            style: TextStyle(fontSize: 12),
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Tên người đi",
             ),
+          ),
+        ),
+
+        SizedBox(height: 15),
+
+        SizedBox(
+          height: 50,
+          child: DropdownButtonFormField<String>(
+            hint: Text('Chọn khu vực', style: const TextStyle(fontSize: 12)),
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Khu vực",
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: 'Hà Nội',
+                child: Text('Hà Nội', style: TextStyle(fontSize: 12)),
+              ),
+              DropdownMenuItem(
+                value: 'Hải Phòng',
+                child: Text('Hải Phòng', style: TextStyle(fontSize: 12)),
+              ),
+            ],
+            onChanged: (String? value) {
+              setState(() {
+                hinhThucThanhToan = value;
+              });
+            },
+          ),
+        ),
+
+        SizedBox(height: 15),
+
+        SizedBox(
+          height: 50,
+          child: DropdownButtonFormField<String>(
+            hint: Text('Chọn khu vực', style: const TextStyle(fontSize: 12)),
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Khu vực",
+            ),
+            items: const [
+              DropdownMenuItem(
+                value: 'Cầu giấy',
+                child: Text('Cầu giấy', style: TextStyle(fontSize: 12)),
+              ),
+              DropdownMenuItem(
+                value: 'Thanh xuân',
+                child: Text('Thanh xuân', style: TextStyle(fontSize: 12)),
+              ),
+            ],
+            onChanged: (String? value) {
+              setState(() {
+                hinhThucThanhToan = value;
+              });
+            },
+          ),
+        ),
+
+        SizedBox(height: 15),
+
+        SizedBox(
+          height: 50,
+          child: TextFormField(
+            style: TextStyle(fontSize: 12),
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Phụ thu",
+            ),
+          ),
+        ),
+
+        SizedBox(height: 15),
+
+        SizedBox(
+          height: 50,
+          child: TextFormField(
+            style: TextStyle(fontSize: 12),
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Tiền phụ thu TC trả",
+            ),
+          ),
+        ),
+
+        SizedBox(height: 15),
+
+        SizedBox(
+          height: 115,
+          child: TextFormField(
+            controller: noteController,
+
+            style: TextStyle(fontSize: 12),
+            expands: true,
+            maxLines: null,
+            textAlignVertical: TextAlignVertical.top,
+
+            decoration: TextFieldDecoration.standard(
+              contentPadding: EdgeInsets.all(10),
+              labelText: "Ghi chú",
+            ),
+          ),
+        ),
+
+        SizedBox(height: 15),
+      ],
+    );
+  }
+
+  Widget _buildBottom() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(top: BorderSide(color: Colors.grey.shade300)),
+      ),
+      child: Wrap(
+        alignment: WrapAlignment.spaceBetween,
+        runSpacing: 8,
+        spacing: 8,
+        children: [
+          Wrap(
+            spacing: 6,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red.shade600,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  '✖ Hủy vé',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  'Thêm vé',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade700,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  'Khứ hồi',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          Wrap(
+            spacing: 6,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade100,
+                  foregroundColor: Colors.blue.shade700,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  'QR thanh toán',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.lightBlue.shade300,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  'Xuất vé điện tử',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade700,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  'Cập nhật',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  'In vé',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.grey.shade200,
+                  foregroundColor: Colors.grey.shade700,
+                  elevation: 0,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 14,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  'Đóng',
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
-  //
 }
